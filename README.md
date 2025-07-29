@@ -1,4 +1,4 @@
-# 俄羅斯方塊
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -13,6 +13,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      flex-direction: column;
     }
     #game-container {
       background-color: #f5f5f5;
@@ -35,13 +36,30 @@
     }
     button {
       padding: 8px 16px;
-      margin-top: 10px;
+      margin: 10px 5px 0 5px;
       font-size: 1rem;
       cursor: pointer;
       background-color: #444;
       color: white;
       border: none;
       border-radius: 5px;
+    }
+    #controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .control-row {
+      display: flex;
+      justify-content: center;
+      margin: 2px 0;
+    }
+    .control-btn {
+      width: 50px;
+      height: 50px;
+      margin: 0 5px;
+      font-size: 24px;
     }
   </style>
 </head>
@@ -50,6 +68,16 @@
     <div id="score">Score: 0</div>
     <canvas id="tetris" width="240" height="400"></canvas>
     <button id="pauseBtn">Pause</button>
+    <div id="controls">
+      <div class="control-row">
+        <button class="control-btn" onclick="playerRotate()">↑</button>
+      </div>
+      <div class="control-row">
+        <button class="control-btn" onclick="playerMove(-1)">←</button>
+        <button class="control-btn" onclick="playerDrop()">↓</button>
+        <button class="control-btn" onclick="playerMove(1)">→</button>
+      </div>
+    </div>
   </div>
   <script>
     const canvas = document.getElementById('tetris');
@@ -220,7 +248,7 @@
       }
       m.forEach(row => row.reverse());
       if (collide(arena, player)) {
-        for (let i = 0; i < 3; ++i) playerRotate(); // rotate back
+        for (let i = 0; i < 3; ++i) playerRotate();
       }
     }
 
